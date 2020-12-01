@@ -9,12 +9,13 @@ with open(file, "r") as f:
         idx += 1
         new_list.append(2020 - int(elem))
 
+    years_list.sort()
     answer = []
     for item in new_list:
         if item in years_list:
             answer.append(item)
 
-    print(f"Answer = {answer[0] * answer[1]}")
+    print(f"Answer to the first task = {answer[0] * answer[1]}")
 
 
 def find_triplet(A, sum):
@@ -23,7 +24,7 @@ def find_triplet(A, sum):
         for j in range(i + 1, arr_size - 1):
             for k in range(j + 1, arr_size):
                 if A[i] + A[j] + A[k] == sum:
-                    print(f"Three numbers that sum to {sum} are: {A[i]} ,  {A[j]} , {A[k]}")
+                    print(f"Three numbers that sum to {sum} are: {A[i]},{A[j]},{A[k]}")
                     print(f"The answer to second task is =  {A[i] * A[j] * A[k]}")
                     return True
     return False
