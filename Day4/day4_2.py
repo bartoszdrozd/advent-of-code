@@ -63,4 +63,4 @@ with open(file, 'r') as f:
                     counter_second += 1
             quick_dict.clear()
     print(f"Answer to the first task: {counter_first}")
-    print(f"Answer to the second task: {counter_second - 1}") #last line fo the file included incorrectly
+    print(f"Answer to the second task: {counter_second - 1}") #last line of the file included incorrectly
