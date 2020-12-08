@@ -18,12 +18,11 @@ with open(file, 'r') as f:
         b = sorted(check_dict.values())
         check_elem = min(b)
         counter = 0
+    print(f"Highest seat ID is: {a[-1][1]}")
     for elem in b:
-        if elem - 1 == check_elem and counter != 0:
-            check_elem = elem
-            counter += 1
-            print(f"it's here {elem}")
+        if elem - check_elem > 1:
+            print(f"Answer to second task is: {check_elem + 1}")
+            break
         else:
-            print(elem)
-    print(b)
-    print(f"Highest seat ID is {a[-1]}")
+            counter += 1
+            check_elem = elem
