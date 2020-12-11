@@ -2,9 +2,10 @@ import re
 target = ["shiny gold"]
 bag_counter = 0
 loop_counter = 0
+previous_bag_counter = 0
 with open('input7.txt', 'r') as f:
     new_list = f.readlines()
-    while loop_counter < 2:
+    while loop_counter < 7:
         for line in new_list:
             for elem in target:
                 if elem in line:
