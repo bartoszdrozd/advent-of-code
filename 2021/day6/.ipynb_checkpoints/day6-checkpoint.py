@@ -1,4 +1,4 @@
-data = [1,1,3,5,1,1,1,4,1,5,1,1,1,1,1,1,1,3,1,1,1,1,2,5,1,1,1,1,1,2,1,4,1,4,
+input = [1,1,3,5,1,1,1,4,1,5,1,1,1,1,1,1,1,3,1,1,1,1,2,5,1,1,1,1,1,2,1,4,1,4,
          1,1,1,1,1,3,1,1,5,1,1,1,4,1,1,1,4,1,1,3,5,1,1,1,1,4,1,5,4,1,1,2,3,2,1,
          1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,5,1,1,1,3,4,1,1,
          1,1,3,1,1,1,1,1,4,1,1,3,1,1,3,1,1,1,1,1,3,1,5,2,3,1,2,3,1,1,2,1,2,4,5,1,
@@ -9,16 +9,22 @@ data = [1,1,3,5,1,1,1,4,1,5,1,1,1,1,1,1,1,3,1,1,1,1,2,5,1,1,1,1,1,2,1,4,1,4,
          1,1,1,1,1,1,1,1,1,1,4,1,1,1,1]
 
 test = [3,4,3,1,2]
+lanterns = input.copy()
 
-with open("input.txt", 'r') as f:
-    data = f.readlines()
-    data = list(map(int, data[0].strip().split(",")))
-    print(data[0])
-fish = [data.count(i) for i in range(9)]
-print(fish)
-for i in range(256):
-    num = fish.pop(0)
-    fish[6] += num
-    fish.append(num)
-    assert len(fish) == 9
-print(sum(fish))
+generation = 1
+while generation < 257:
+    for elem in range(len(lanterns)):
+        if lanterns[elem] != 0:
+            lanterns[elem] -= 1
+        else:
+            lanterns.append(8)
+            lanterns[elem] = 6
+    generation += 1
+    print(f"Generation:{generation}, Number of fish: {len(lanterns)}")
+    
+print(len(lanterns))
+
+answer_one_testdata = 5934
+answer_two_testdata = 26984457539
+
+answer_one = 396210
