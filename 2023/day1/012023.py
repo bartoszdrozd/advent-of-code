@@ -1,18 +1,16 @@
 import time
+import re
+import num2words
 
 start_time = time.time()
 
 file = "input.txt"
 with open(file, "r") as f:
-	data_list = f.read()
+	data_list = f.readlines()
 
-# test_data = """1abc2
-# pqr3stu8vwx
-# a1b2c3d4e5f
-# treb7uchet"""
+literal_list = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
 numbers = {
-	'zero': 0,
 	'one': 1,
 	'two': 2,
 	'three': 3,
@@ -26,7 +24,7 @@ numbers = {
 
 def getsum(data_list):
 	counter = 0
-	for x in data_list.splitlines():
+	for x in data_list:
 		first_number = 0
 		last_number = 0
 		first_number_set = False
@@ -41,27 +39,39 @@ def getsum(data_list):
 		counter += int(str(first_nubmer) + str(last_number))
 	return counter
 
-def get_sum_literals(data_list):
-	counter = 0
-	for x in data_list.splitlines():
-		first_number = 0
-		last_number = 0
-		first_number_set = False
-		last_number_set = False
-		for elem in x:
-			if elem.isdigit() and first_number_set == False:
-				first_nubmer = elem
-				last_number = elem
-				first_number_set = True
-			elif elem.isdigit() and last_number:
-				last_number = elem
-		counter += int(str(first_nubmer) + str(last_number))
-	return counter
 
+pattern = '(\D+)'
+total_count = 0
+counter = 0
+for elem in data_list:
+	test_list = []
+	elem = elem.rstrip('\n')
+	letter_index = 0
+	elem_list = list(elem)
+	for numb in elem_list:
+		if numb.isdigit():
+			elem_list[letter_index] = num2words.num2words(numb)
+		letter_index += 1
+	elem = ''.join(elem_list)
+	words = re.findall(pattern, elem)
+	test_dict = {}
+	for word in words:
+		for literal in literal_list:
+			start = 0
+			while word.find(literal, start) != -1:
+				index = word.find(literal, start)
+				test_dict[index] = numbers[literal]
+				start = index + 1
+	sorted_dict = dict(sorted(test_dict.items()))
+	dict_list = []
+	for key in sorted_dict:
+		dict_list.append(int(sorted_dict[key]))
+	value = int((str(dict_list[0]) + str(dict_list[-1])))
+	total_count += value
 
 
 print(f'Part One: {getsum(data_list)}')
-# print(f'Part Two: {second_answer}')
+print(f'Part Two: {total_count}')
 
 end_time = time.time()
 
